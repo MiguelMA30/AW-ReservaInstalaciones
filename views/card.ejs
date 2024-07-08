@@ -1,0 +1,101 @@
+<!-- Estructura de la tarjeta para mostrar información de una instalación -->
+<div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="card mt-2 ms-4 border-3" style="border-color:#8d1f2a ;">
+      <!-- Imagen de la instalación -->
+      <img src="/imagen/<%=element.id %>" class="card-img-top" alt="...">
+        <div class="card-body bg-light">
+            <h5 class="card-title" style="color: #8d1f2a;">
+                 <!-- Nombre de la instalación -->
+                <%=element.nombre %>
+            </h5>
+            <p class="card-text text-black">
+                 <!-- Tipo de reserva y plazas -->
+                <%=element.tipo_reserva%>
+                <b><span class="float-end font-weight-bold">Plazas: <%=element.aforo %></span></b> 
+            </p>
+            <!-- Boton para la reserva-->
+            <button class="btn text-light " style="background-color: #8d1f2a;" <%if(usuario.rol){ %> disabled <% } %>data-bs-toggle="modal" data-bs-target="<%=`#reservarInst${i}`%>">Reservar</button>
+            <!--boton para ver los detalles-->
+           <% if(usuario.rol) {%> 
+        <a href="/detallesInstalacion/<%=element.id %>" ><button type="submit"
+          class="btn-detailsIns ms-4 me-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+
+        </button></a>
+        <% } %>
+        </div>
+      
+    </div>
+<!--Modal para hacer la reserva-->
+    <div class="modal fade" id="<%=`reservarInst${i}`%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content w-100">
+          <div class="modal-header">
+            <h1 class="modal-title text-light  fs-5">RESERVAR INSTALACIÓN</h1>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="/reservar/<%=element.id %>"   method="post" class="d-flex flex-column justify-content-center h-100 w-10  0 p-4 rounded-3">
+    
+    
+              <div class="mb-3">
+                  <label class="form-label">Fecha</label>
+                  <input required type="date" class="form-control" name="fecha">
+                </div>
+            <div class="mb-3 d-flex flex-wrap ">
+              <div class=" me-4">
+                <label for="appt">Hora de entrada</label>
+                <input type="time" id="input-hora-ini" name="hora_ini" min="<%= element.hora_ini %>" max="<%= element.hora_fin %>" required oninput="validateTime()" />
+              </div>
+                
+              <div class="">
+                <label for="appt">Hora de salida</label>
+                <input type="time" id="input-hora-fin" name="hora_fin" min="<%= element.hora_ini %>" max="<%= element.hora_fin %>" required oninput="validateTime()" />
+              </div>  
+            </div>
+            <div id="aviso" class="alert alert-danger" role="alert" style="display: none;">
+              
+            </div>
+              <div class="mb-3">
+                  <label for="input-plazas_res" class="form-label">Numero de personas</label>
+                  <input required type="number" class="form-control" id="input-plazas_res" name="plazas_res" placeholder="numero de personas" max="<%=element.aforo %>">
+              </div>
+                  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Reservar</button>
+            </div>
+            
+          </form>
+          
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- funcion para validar las horas-->
+<script>
+  function validateTime() {
+      const horaIniInput = document.getElementById('input-hora-ini');
+      const horaFinInput = document.getElementById('input-hora-fin');
+      const avisoElement = document.getElementById('aviso');
+   
+      const horaIni = new Date(`2000-01-01T${horaIniInput.value}`);
+      const horaFin = new Date(`2000-01-01T${horaFinInput.value}`);
+      
+      if (horaIni >=horaFin) {
+          avisoElement.textContent='la hora de salida debe ser mayor que la de entrada';
+          avisoElement.style.display='block';
+          horaIniInput.value = ''; 
+          setTimeout(function() {
+            avisoElement.style.display = 'none';
+        }, 3000);
+      }
+     
+  }
+  </script>

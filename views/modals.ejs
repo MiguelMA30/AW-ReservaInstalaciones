@@ -1,0 +1,210 @@
+<!--modal para cerrar sesion-->
+
+<div class="modal fade" id="closeSession" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="closeSessionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text-light  fs-5" id="closeSessionLabel">CERRAR SESIÓN</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-black">
+         ¿Está seguro de que quiere cerrar sesión?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" onclick="window.location.href='/cerrarSesion'">Confirmar</button>
+        </div>
+      </div>
+    </div>
+</div>
+  <!--modal para añadir una instalacion-->
+<div class="modal fade" id="addInst"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addInstLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content w-100">
+        <div class="modal-header">
+          <h1 class="modal-title text-light  fs-5" id="addInstLabel">AÑADIR INSTALACIÓN</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/instalacion"method="post" enctype="multipart/form-data"  class="d-flex flex-column justify-content-center h-100 w-10  0 p-4 rounded-3">
+          <div class="mb-3">
+            <label for="input-nombre" class="form-label">Nombre</label>
+            <input required type="text" class="form-control" id="input-nombre" name="nombre" placeholder="Nombre" >
+          </div>
+  
+          <div class="mb-3">
+            <label for="input-tipo_reserva" class="form-label">Tipo de reserva</label>
+            <select required class="form-select" id="input-tipo_reserva" name="tipo_reserva">
+              <option value="colectiva">Colectiva</option>
+              <option value="individual">Individual</option>
+            </select>
+          </div>
+          
+  
+          <div class="mb-3">
+            <label for="appt">Hora de apertura</label>
+          <input type="time" id="input-hora-ini" name="hora_ini" min="08:00" max="21:30" required />
+          </div>
+          
+          <div class="mb-3">
+            <label for="appt">Hora cierre</label>
+          <input type="time" id="input-hora-fin" name="hora_fin" min="08:01" max="21:30" required />
+          </div>
+          
+          
+  
+          <div class="mb-3">
+            <label for="input-aforo" class="form-label">Aforo</label>
+            <input required type="number" class="form-control" id="input-aforo" name="aforo" placeholder="Aforo" min="1">
+          </div>
+          
+          
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Imagen de la Instalación</label>
+            <input class="form-control" type="file" id="formFile" name="imagen_instalacion" placeholder="imagen_instalacion">
+          </div>
+           
+    
+           
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Añadir</button>
+          </div>
+          
+            
+         
+        </form>
+        
+      </div>
+    </div>
+</div>
+
+
+<!--modal para mostrar los usuarios de la aplicacion y manejarlos de manera mas rapida-->
+
+<div class="modal fade" id="users" tabindex="-1" aria-labelledby="usersLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title text-light  fs-5" id="usersLabel">USUARIOS</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <% usuarios.forEach(user => { %>
+            <% if (user.validado) { %>
+              <% if (usuario.id != user.id) { %>
+                <div class="col-md-6 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= user.nombre %></h5>
+                      <p class="card-text"><strong>Correo:</strong> <%= user.email %></p>
+                      <p class="card-text"><strong>Facultad:</strong> <%= user.facultad %></p>
+                      <p class="card-text"><strong>Curso:</strong> <%= user.curso %></p>
+                      <p class="card-text"><strong>Grupo:</strong> <%= user.grupo %></p>
+        
+                      <div class="d-flex">
+                       
+                        <% if (!user.es_administrador) { %>
+                          
+                          <form id="formDarPermisos" action="/giveAdminPriv" method="post">
+                            <input type="hidden" name="userEmail" value="<%= user.email %>">
+                            <button type="submit" class="btn-validate me-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                              </svg>
+                            </button>
+                          </form>
+                        <% } else { %>
+                          <form id="formQuitarPermisos" action="/rmAdminPriv" method="post">
+                            <input type="hidden" name="userEmail" value="<%= user.email %>">
+                            <button type="submit" class="btn-validate me-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                              </svg>
+                            </button>
+                          </form>
+                        <% } %>
+                        
+                        <a href="/detallesUsuario/<%= user.id %>">
+                          
+                          <button type="button" class="btn-validate me-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                      stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <% } %>
+          <% }); %>
+        </div>
+        
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="mail" tabindex="-1" aria-labelledby="mailLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title text-light  fs-5" id="mailLabel">USUARIOS NO VALIDADOS</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body" id="tablaUsuariosNoValidados">
+        <div class="row">
+          <% usuarios.forEach(user => { %>
+            <% if (!user.validado) { %>
+              <% if (usuario.id != user.id) { %>
+                <div class="col-md-6 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= user.nombre %></h5>
+                      <p class="card-text"><strong>Correo:</strong> <%= user.email %></p>
+                      <p class="card-text"><strong>Facultad:</strong> <%= user.facultad %></p>
+                      <p class="card-text"><strong>Curso:</strong> <%= user.curso %></p>
+                      <p class="card-text"><strong>Grupo:</strong> <%= user.grupo %></p>
+        
+                      <div class="d-flex">
+                        <form id="formValidarUsuario" action="/validateUser" method="post">
+                          <input type="hidden" name="userId" value="<%=user.id %>">
+                          <button type="submit" class="btn-validate">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                            
+                          </button>
+                        </form>
+                     
+                      
+                        
+                     
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <% } %>
+          <% }); %>
+        </div>
+       
+      </div>
+
+    </div>
+  </div>
+</div>
+

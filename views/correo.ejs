@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+  <title>UCM_RIU</title>
+</head>
+
+<body>
+<!--Navbar de pagina de correo con las opciones necesarias-->
+  <nav class="navbar fixed-top navbar-expand-lg bg-custom-color">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img id="logo" class="navbar-logo" src="/icono" alt="UCM logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-light" aria-current="page" href="http://localhost:3000/index">Inicio</a>
+          </li>
+          
+
+        </ul>
+
+      </div>
+      <div class="d-flex justify-content-end align-items-center w-100 text-white">
+        <div id="usuario">
+          <%=usuario.nombre %>
+          
+        </div>
+        <img class="foto-perfil rounded-circle me-4 ms-4 " src="/foto/<%=usuario.id %>">
+        <% if(usuario.rol){ %>
+          <button id="btn-mail" class="btn ms-2" data-bs-toggle="modal" data-bs-target="#mail">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+          </button>
+        <% } %>
+    
+        <% if(usuario.rol){ %>
+          <button id="btn-users" class="btn ms-2" data-bs-toggle="modal" data-bs-target="#users">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+            </svg>
+          </button>
+        <% } %>
+       
+      
+
+        <div class="dropdown-config">
+            <button id="btn-config" class="btn me-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
+            <div class="dropdown-content">
+                <a href="/index" class="menu-item">Inicio</a>
+                <% if(usuario.rol){ %>
+                    <a href="/configuracion" class="menu-item">Configuración del sistema</a>
+                  <% } %>
+                  <a href="/VerPerfil" class="menu-item">Ver perfil</a>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#closeSession" class="menu-item">Cerrar sesión</a>
+              
+            </div>
+          </div>
+      </div>
+    </div>
+  </nav>
+ 
+  <div id="contenido" class="d-flex justify-content-center pt-5 gap-3 h-90 mt-5 " style="background-color: #eee; min-height: calc(100vh - 50px)">
+    <div class="card w-50 p-4">
+        <div class="d-flex justify-content-between align-items-start">
+            <h2 class="mb-4">Menú de Correos</h2>
+            <img src="/foto/<%= usuario.id %>" alt="Imagen del Usuario" class="rounded-circle" style="width: 50px; height: 50px;">
+        </div>
+    
+       
+      
+        <div class="mb-3">
+            <label for="tipoCorreo" class="form-label">Selecciona el tipo de correo:</label>
+            <select class="form-select" id="tipoCorreo">
+                <option selected="Todos">Todos</option>
+                <option value="enviados">Correos enviados</option>
+                <option value="recibidos">Correos recibidos</option>
+            </select>
+        </div>
+    
+        <div id="contenidoEnviados">
+            <div id="contenido" class="d-flex flex-column align-items-center justify-content-center ">
+  
+                <% if(enviados.length>0) {%>
+                 <div class="d-flex justify-content-center mt-2"> <b><p>HAS ENVIADO LOS SIGUIENTES CORREOS</p></b></div>
+                 <div class="table">
+                        <div class="table-row header">
+                            <div>Destinatario</div>
+                            <div>Mensaje</div>
+                        
+                        </div>
+                        <% enviados.forEach(env => { %>
+                            <div class="table-row">
+                                <div>Para <%= env.nombre %> con correo <%= env.email %></div>
+                                <div><%= env.mensaje %></div>
+                            
+                            
+                            </div>
+                            
+                        <% }); %>
+                   </div>
+                
+                 
+                       
+                        
+              
+                    
+                <% } else { %>
+                    <div class="mt-5 d-flex justify-content-center"><b><p>NO HAS ENVIADO NINGUN CORREO</p></b> </div>
+                    
+                <% } %>
+            </div>
+         </div>
+         <div id="contenidoRecibidos">
+            <div id="contenido" class="d-flex flex-column align-items-center justify-content-center mt-5">
+  
+                <% if(recibidos.length>0) {%>
+                 <div class="d-flex justify-content-center mt-2"> <b><p>HAS RECIBIDO LOS SIGUIENTES CORREOS</p></b></div>
+                 <div class="table">
+                        <div class="table-row header">
+                            <div>Emisor</div>
+                            <div>Mensaje</div>
+                        
+                        </div>
+                        <% recibidos.forEach(rec => { %>
+                            <div class="table-row">
+                                <div>De <%= rec.nombre %> con correo <%= rec.email %></div>
+                                <div><%= rec.mensaje %></div>
+                            
+                            
+                            </div>
+                            
+                        <% }); %>
+                   </div>
+                
+                 
+                       
+                        
+              
+                    
+                <% } else { %>
+                    <div class="mt-5 d-flex justify-content-center"><b><p>NO HAS RECIBIDO NINGUN CORREO</p></b> </div>
+                    
+                <% } %>
+            </div>
+            
+        </div>
+           <!--Boton para activar el modal con el que mandar un correo-->  
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enviarCorreoModal">
+                Enviar Correo
+            </button>
+
+          
+            <div class="modal fade" id="enviarCorreoModal" tabindex="-1" aria-labelledby="enviarCorreoModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="enviarCorreoModalLabel">Enviar Correo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            
+                       
+                            <form id="sendMail" action="/sendMail" method="post">
+                                <% if(usuario.rol) {%>
+                                <div class="mb-3">
+                                    <label for="facultad" class="form-label">Facultad:</label>
+                                    <select  class="form-select" id="facultad" placeholder="Seleccione la facultad" >
+                                        <option value="" selected disabled>Seleccione la facultad</option>
+                                        <option value="Bellas Artes">Bellas Artes</option>
+                                        <option value="Ciencias Biológicas">Ciencias Biológicas</option>
+                                        <option value="Ciencias de la Documentación">Ciencias de la Documentación</option>
+                                        <option value="Ciencias de la Información">Ciencias de la Información</option>
+                                        <option value="Ciencias Económicas y Empresariales">Ciencias Económicas y Empresariales</option>
+                                        <option value="Ciencias Físicas">Ciencias Físicas</option>
+                                        <option value="Ciencias Geológicas">Ciencias Geológicas</option>
+                                        <option value="Ciencias Matemáticas">Ciencias Matemáticas</option>
+                                        <option value="Ciencias Políticas y Sociología">Ciencias Políticas y Sociología</option>
+                                        <option value="Ciencias Químicas">Ciencias Químicas</option>
+                                        <option value="Comercio y Turismo">Comercio y Turismo</option>
+                                        <option value="Derecho">Derecho</option>
+                                        <option value="Educación – Centro de Formación del Profesorado">Educación – Centro de Formación del Profesorado</option>
+                                        <option value="Enfermería, Fisioterapia y Podología">Enfermería, Fisioterapia y Podología</option>
+                                        <option value="Estudios Estadísticos">Estudios Estadísticos</option>
+                                        <option value="Farmacia">Farmacia</option>
+                                        <option value="Filología">Filología</option>
+                                        <option value="Filosofía">Filosofía</option>
+                                        <option value="Geografía e Historia">Geografía e Historia</option>
+                                        <option value="Informática">Informática</option>
+                                        <option value="Medicina">Medicina</option>
+                                        <option value="Odontología">Odontología</option>
+                                        <option value="Óptica y Optometría">Óptica y Optometría</option>
+                                        <option value="Psicología">Psicología</option>
+                                        <option value="Trabajo Social">Trabajo Social</option>
+                                        <option value="Veterinaria">Veterinaria</option>
+                                                        
+                                    </select>
+                                </div>
+                                <% } %>
+                                <div class="mb-3">
+                                    <label for="idRecep" class="form-label">Destinatario:</label>
+                                    <select name="idRecep" class="form-select" id="idRecep" placeholder="Seleccione el destinatario" >
+                                        <% usuarios.forEach(user => { %>
+                                            <% if(usuario.id!=user.id){ %>
+                                            <option value="<%= user.id %>"><%= user.email %></option>
+                                            <% } %>
+                                        <% }); %>
+                                    </select> 
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mensaje" class="form-label">Texto del Correo:</label>
+                                    <textarea class="form-control" id="mensaje" rows="3" name="mensaje" placeholder="Ingrese el texto del correo"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" >Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+      
+        
+
+
+    </div>
+    
+</div>
+ 
+
+
+
+
+     
+<!--Footer + modales-->
+   
+    <%- include('footer') %>
+    <%- include('modals') %>
+</body>
+
+<!--Funcion para el dropmenu de la configuracion-->
+<script>
+    
+    document.getElementById('btn-config').addEventListener('click', function() {
+      let dropdownContent = document.querySelector('.dropdown-content');
+      dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
+    });
+
+
+
+</script>
+<!--Funcion para el selector de correo de tal modo que se muestra solamente el que haya seleccionado en la vista o ambos-->
+<script>
+    document.getElementById('tipoCorreo').addEventListener('change', function () {
+        let tipoSeleccionado = this.value;
+        let contenidoEnviados = document.getElementById('contenidoEnviados');
+        let contenidoRecibidos = document.getElementById('contenidoRecibidos');
+
+        
+        if (tipoSeleccionado === 'enviados') {
+            contenidoEnviados.style.display = 'block';
+            contenidoRecibidos.style.display = 'none';
+        } else if (tipoSeleccionado === 'recibidos') {
+            contenidoEnviados.style.display = 'none';
+            contenidoRecibidos.style.display = 'block';
+        }
+        else{
+            contenidoRecibidos.style.display = 'block';
+            contenidoEnviados.style.display = 'block';
+        }
+    });
+</script>
+
+
+</html>

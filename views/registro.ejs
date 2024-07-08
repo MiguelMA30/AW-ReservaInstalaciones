@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+      <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+    <title>UCM_RIU</title>
+  </head>
+
+<body>
+
+  <nav class="navbar fixed-top navbar-expand-lg bg-custom-color">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img id="logo" class="navbar-logo" src="/icono" alt="UCM logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="d-flex justify-content-center align-items-center w-100 text-white"> <h1 id="titulo" class="text-center display-5 mb-2 text-white"><b><em><u>UCM_RIU</u></em></b></h1><span></div>
+ 
+        
+    </div>
+</nav>
+
+<!--formulario para el registro-->
+<div id="contenido" class=" d-flex justify-content-center pt-5 gap-3 h-90  mt-5 mb-5 " style="background-color: #eee; min-height: calc(100vh - 50px)">
+    <form action="/register" onsubmit="return validarFormulario();" method="post" enctype="multipart/form-data" class="d-flex flex-column justify-content-center h-100 w-50 p-4 rounded-3">
+        <div class="avatar" style="background-image: url('/imagenes/perfil.jpg');">
+        </div>
+        <div class="mb-3 d-flex flex-wrap">
+            <div class="w-50 pe-2">
+                <label for="input-nombre" class="form-label">Nombre</label>
+                <input required type="text" class="form-control" id="input-nombre" name="nombre" placeholder="nombre" >
+            </div>
+    
+            <div class="w-50 pe-2">
+                <label for="input-apellidos" class="form-label">Apellidos</label>
+                <input required type="text" class="form-control" id="input-apellidos" name="apellidos" placeholder="apellidos" >
+            </div>
+        </div>
+        
+
+        <div class="mb-3">
+            <label for="input-email" class="form-label">Email</label>
+            <input required type="text" class="form-control" id="input-email" name="email" placeholder="ex@ucm.es" >
+            <div id="error-message"></div>
+        </div>
+
+        <div class="d-flex flex-column mb-3">
+            <label for="input-contrasena" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <input required type="password" class="form-control" id="input-contrasena" name="contrasena" placeholder="Contraseña">
+              <div class="input-group-append">
+                <span class="input-group-text toggle-password h-100" id="togglePassword" toggle="#input-contrasena">
+                  <i class="fa fa-eye"></i>
+                </span>
+              </div>
+            </div>
+            <div id="error-message"></div>
+          </div>
+       
+
+        <div class="mb-3">
+            <label for="input-facultad" class="form-label">Facultad</label>
+            <select required class="form-select" id="input-facultad" name="facultad">
+                <option value="Bellas Artes">Bellas Artes</option>
+                <option value="Ciencias Biológicas">Ciencias Biológicas</option>
+                <option value="Ciencias de la Documentación">Ciencias de la Documentación</option>
+                <option value="Ciencias de la Información">Ciencias de la Información</option>
+                <option value="Ciencias Económicas y Empresariales">Ciencias Económicas y Empresariales</option>
+                <option value="Ciencias Físicas">Ciencias Físicas</option>
+                <option value="Ciencias Geológicas">Ciencias Geológicas</option>
+                <option value="Ciencias Matemáticas">Ciencias Matemáticas</option>
+                <option value="Ciencias Políticas y Sociología">Ciencias Políticas y Sociología</option>
+                <option value="Ciencias Químicas">Ciencias Químicas</option>
+                <option value="Comercio y Turismo">Comercio y Turismo</option>
+                <option value="Derecho">Derecho</option>
+                <option value="Educación – Centro de Formación del Profesorado">Educación – Centro de Formación del Profesorado</option>
+                <option value="Enfermería, Fisioterapia y Podología">Enfermería, Fisioterapia y Podología</option>
+                <option value="Estudios Estadísticos">Estudios Estadísticos</option>
+                <option value="Farmacia">Farmacia</option>
+                <option value="Filología">Filología</option>
+                <option value="Filosofía">Filosofía</option>
+                <option value="Geografía e Historia">Geografía e Historia</option>
+                <option value="Informática">Informática</option>
+                <option value="Medicina">Medicina</option>
+                <option value="Odontología">Odontología</option>
+                <option value="Óptica y Optometría">Óptica y Optometría</option>
+                <option value="Psicología">Psicología</option>
+                <option value="Trabajo Social">Trabajo Social</option>
+                <option value="Veterinaria">Veterinaria</option>
+            </select>
+        </div>
+    <div class="mb-3 d-flex flex-wrap">
+        <div class="w-50 pe-2">
+            <label for="input-curso" class="form-label">Curso</label>
+            <select required class="form-select" id="input-curso" name="curso">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+    
+        <div class="w-50 pe-2">
+            <label for="input-grupo" class="form-label">Grupo</label>
+            <select required class="form-select" id="input-grupo" name="grupo">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+            </select>
+        </div>
+    </div>
+        
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Foto de Perfil</label>
+          <input class="form-control" type="file" id="formFile" name="foto" placeholder="imagen_perfil">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+
+        <div class="mt-4">
+            <div class="d-flex justify-content-center links">
+               ¿Ya tienes una cuenta? <a href="http://localhost:3000/" class="ml-2">Inicia sesión</a>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-10 col-lg-6 col-xl-7 d-flex justify-content-center align-items-center order-1 order-lg-2">
+        <img src="/icono" class="logoucm img-fluid rounded" alt="Sample image">
+      </div>
+</div>  
+<%- include('footer') %>
+
+</body>
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+      $(".toggle-password").click(function() {
+        var input = $($(this).attr("toggle"));
+        var icon = $(this).find("i");
+  
+        if (input.attr("type") == "password") {
+          input.attr("type", "text");
+          icon.removeClass("fa-eye").addClass("fa-eye-slash");
+        } else {
+          input.attr("type", "password");
+          icon.removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+      });
+    });
+  </script>
+
+
+
+</script>
+
+
+<!--funciones para corroborar que los campos correo y contraseña son validos-->
+<script>
+  
+    function validarFormulario() {
+      
+        return validarCorreo() && validarContrasena();
+    }
+
+
+    function validarCorreo() {
+        // Obtener el valor del campo de correo electrónico
+        let emailInput = document.getElementById("input-email");
+        let email = emailInput.value.trim();
+        
+
+        // Expresión regular para verificar si el correo electrónico termina en @ucm.es
+        let valid = /@ucm\.es$/;
+        
+        // Verificar si el correo electrónico cumple con la expresión regular
+        if (!valid.test(email)) {
+       
+            emailInput.classList.add("invalid");
+
+            
+          
+            let errorMessage = document.getElementById("error-message");
+                errorMessage.textContent = "El correo electrónico debe terminar en @ucm.es";
+                errorMessage.style.display = "block";
+           
+            return false; 
+        } else {
+            emailInput.classList.remove("invalid");
+            let errorMessage = document.getElementById("error-message");
+            errorMessage.style.display = "none";
+            
+            
+        }
+        
+        return true;
+    }
+
+
+    function validarContrasena() {
+
+        let contrasenaInput = document.getElementById("input-contrasena");
+        let contrasena = contrasenaInput.value;
+        if (contrasena.length < 6) {
+            contrasenaInput.classList.add("invalid");
+            contrasenaInput.style.backgroundColor = "#ffe6e6";
+
+            
+            let errorMessage = document.getElementById("error-message");
+                errorMessage.textContent = "La contraseña debe tener al menos 6 caracteres";
+                errorMessage.style.display = "block";
+            return false; 
+        } else {
+            contrasenaInput.classList.remove("invalid");
+            let errorMessage = document.getElementById("error-message");
+            errorMessage.style.display = "none";
+        }
+
+         
+        return true;
+    }
+</script>
+
+
+
+</html>
